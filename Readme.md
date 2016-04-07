@@ -13,9 +13,9 @@ This is a sample project template using:
 
   * lint - javascript linter [eslint](http://eslint.org/) module
   * test - nodejs testing  [mocha](https://mochajs.org/)
-    * coveralls - code coverage reports  [istanbul](https://github.com/gotwarlost/istanbul) + [Coveralls](https://coveralls.io/)
-    * pack - front end build system  [webpack](https://webpack.github.io/)
-    * run - development run app [nodemon](http://nodemon.io/)
+  * coveralls - code coverage reports  [istanbul](https://github.com/gotwarlost/istanbul) + [Coveralls](https://coveralls.io/)
+  * pack - front end build system  [webpack](https://webpack.github.io/)
+  * run - development run app [nodemon](http://nodemon.io/)
 
 * Koa routing using [koa-load-routes](https://github.com/gbahamondez/koa-load-routes)
 
