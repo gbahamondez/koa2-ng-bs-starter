@@ -6,17 +6,17 @@ module.exports = function (angular, uiRouter) {
 
   angular.module(name, [uiRouter])
 
-  .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
+  .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state('login', {
       url         : '/login',
       templateUrl : '/templates/login.html',
       controller  : 'LoginController'
     });
-  }])
+  })
 
-  .controller('LoginController',  ["$scope", "$state", function($scope, $state) {
+  .controller('LoginController', function($scope, $state) {
     console.log('login controller');
-  }]);
+  });
 
   return 'login';
 };

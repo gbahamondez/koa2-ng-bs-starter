@@ -80,10 +80,8 @@ gulp.task('pack', function() {
     watch  : true,
     module : {
       loaders : [{
-        test   : /\.css$/,
-        loader : CSSExtract.extract(
-          'style-loader', 'css-loader'
-        )
+        test   : /\.s?css$/,
+        loaders: ['style-loader', 'css-loader', 'sass-loader']
       }, {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader?limit=10000&mimetype=application/font-woff'
@@ -140,8 +138,8 @@ gulp.task('open', function() {
 
 gulp.task('annotate', function () {
   return gulp.src('public/src/app/**/*.js')
-      .pipe(ngAnnotate())
-      .pipe(gulp.dest('public/src/app'));
+    .pipe(ngAnnotate())
+    .pipe(gulp.dest('public/src/app'));
 });
 
 

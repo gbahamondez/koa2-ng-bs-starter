@@ -1,3 +1,5 @@
+'use strict';
+
 const Koa = require('koa');
 const router = require('koa-load-routes');
 const logger = require('koa-logger');
@@ -12,6 +14,6 @@ app = router(app, {
   path : '/routes.js'
 });
 
-app.listen(3000, () => {
+app.listen(3000,  () => {
   console.log('app started at http://127.0.0.1:3000/');
 });

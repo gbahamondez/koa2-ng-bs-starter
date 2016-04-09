@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
-    "type" : "git",
-    "url"  : "git+https://github.com/gbahamondez/koa-angular-bootstrap-sample.git"
+    "type": "git",
+    "url": "git+https://github.com/gbahamondez/koa-angular-bootstrap-sample.git"
   },
   "author": "Gonzalo Bahamondez",
   "license": "MIT",
@@ -41,6 +41,8 @@
     "gulp-open": "^1.0.0",
     "gulp-plumber": "^1.1.0",
     "isparta": "^4.0.0",
+    "node-sass": "^3.4.2",
+    "sass-loader": "^3.2.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack-stream": "^3.1.0"

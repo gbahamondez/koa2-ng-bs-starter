@@ -1,7 +1,7 @@
 'use strict';
 
 require('bootstrap/dist/css/bootstrap.min.css');
-require('../css/signin.css');
+require('../sass/signin.scss');
 
 var angular = require('angular');
 
@@ -13,8 +13,6 @@ var ngAnimate = require('angular-animate');
 var uiBootstrap = require('angular-ui-bootstrap');
 var login = require('./modules/login.js')(angular, uiRouter);
 
-console.log("hello a");
-
 var app = angular.module('app', [
   ngAnimate,
   uiBootstrap,
@@ -22,7 +20,7 @@ var app = angular.module('app', [
   login
 ]);
 
-app.config(["$urlRouterProvider", function ($urlRouterProvider) {
+app.config(function ($urlRouterProviderr) {
   $urlRouterProvider.otherwise("/login");
-}]);
+});
 
