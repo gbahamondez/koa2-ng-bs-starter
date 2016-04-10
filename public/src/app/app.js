@@ -11,7 +11,7 @@ var uiRouter = 'ui.router';
 
 var ngAnimate = require('angular-animate');
 var uiBootstrap = require('angular-ui-bootstrap');
-var login = require('./modules/login.js')(angular, uiRouter);
+var login = require("./modules/login.js")(angular, uiRouter);
 
 var app = angular.module('app', [
   ngAnimate,
@@ -20,7 +20,7 @@ var app = angular.module('app', [
   login
 ]);
 
-app.config(function ($urlRouterProviderr) {
+app.config(function ($urlRouterProvider) {
   $urlRouterProvider.otherwise("/login");
 });
 

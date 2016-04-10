@@ -6,13 +6,14 @@ const nsp = require('gulp-nsp');
 const plumber = require('gulp-plumber');
 const coveralls = require('gulp-coveralls');
 const excludeGitignore = require('gulp-exclude-gitignore');
-const webpack = require('webpack-stream');
-const CSSExtract = require('extract-text-webpack-plugin');
+const webpackStream = require('webpack-stream');
+const webpack = require('webpack');
 const open = require('gulp-open');
 const nodemon = require('gulp-nodemon');
 const ngAnnotate = require('gulp-ng-annotate');
 const path = require('path');
 const app = require('./config/application.js');
+const sequence = require('run-sequence');
 
 var started = false;
 
@@ -70,14 +71,15 @@ gulp.task('coveralls', ['test'], function () {
 });
 
 
+// Returns webpack stream
+function pack(opts) {
 
-gulp.task('pack', function() {
-  var stream = webpack({
+  var wpObject = {
     output : {
       filename : 'bundle.js'
     },
     devtool: 'source-map',
-    watch  : true,
+    watch  : (opts.mode === 'development'),
     module : {
       loaders : [{
         test   : /\.s?css$/,
@@ -99,23 +101,41 @@ gulp.task('pack', function() {
         loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
       }]
     },
-    plugins : [new CSSExtract('bundle.css')]
-  },
-  null,
-  // Just the first time
-  function() {
-    if (!started) {
-      gulp.start('open');
-      started = true;
-    }
-  });
+    plugins : (opts.mode === 'development') ? [] : [new webpack.optimize.UglifyJsPlugin()]
+  };
 
-  return gulp.src('public/src/app/app.js').pipe(stream)
+  return webpackStream(
+    wpObject,
+    null,
+    (opts.mode === 'development') ? function () {
+      if (!started) {
+        gulp.start('open');
+        started = true;
+      }
+    } : null
+  );
+}
+
+
+gulp.task('pack-dev', function () {
+  return gulp.src('public/src/app/app.js')
+    .pipe(pack({
+      mode: 'development'
+    }))
     .pipe(gulp.dest('public/dist'));
 });
 
 
-gulp.task('run', function() {
+gulp.task('pack-prod', function () {
+  return gulp.src('public/build/app/app.js')
+    .pipe(pack({
+      mode : 'prod'
+    }))
+    .pipe(gulp.dest('public/dist'));
+});
+
+
+gulp.task('run', function () {
   var opts = {
     script : 'app.js',
     ignore : [
@@ -129,7 +149,7 @@ gulp.task('run', function() {
 });
 
 
-gulp.task('open', function() {
+gulp.task('open', function () {
   gulp.src('').pipe(open({
     uri: 'http://localhost:' + app.port
   }));
@@ -139,11 +159,24 @@ gulp.task('open', function() {
 gulp.task('annotate', function () {
   return gulp.src('public/src/app/**/*.js')
     .pipe(ngAnnotate())
-    .pipe(gulp.dest('public/src/app'));
+    .pipe(gulp.dest('public/build/app'));
 });
 
 
-gulp.task('build', ['annotate']);
-gulp.task('serve', ['run',  'pack']);
+gulp.task('copy-sass', function () {
+  return gulp.src('public/src/sass/**')
+  .pipe(gulp.dest('public/build/sass'));
+});
+
+
+gulp.task('build', function (done) {
+  sequence(['annotate', 'copy-sass'], function () {
+    gulp.start('pack-prod');
+    done();
+  })
+});
+
+
+gulp.task('serve', ['run',  'pack-dev']);
 gulp.task('prepublish', ['nsp']);
 gulp.task('default', ['lint', 'test', 'coveralls']);
