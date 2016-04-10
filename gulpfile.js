@@ -14,6 +14,7 @@ const ngAnnotate = require('gulp-ng-annotate');
 const path = require('path');
 const app = require('./config/application.js');
 const sequence = require('run-sequence');
+const jsdoc = require('gulp-jsdoc3');
 
 var started = false;
 
@@ -169,11 +170,32 @@ gulp.task('copy-sass', function () {
 });
 
 
+
+gulp.task('docs', function (cb) {
+  var config = {
+    opts: {
+      destination : './docs/',
+      recurse     : true
+    }
+  };
+
+  gulp.src([
+    'Readme.md', '**/*.js', '!public/dist/**',
+    '!gulpfile.js', '!config/**', '!test/**',
+    '!docs/**'
+    ], {
+    read: false
+  })
+  .pipe(excludeGitignore())
+  .pipe(jsdoc(config, cb));
+});
+
+
 gulp.task('build', function (done) {
   sequence(['annotate', 'copy-sass'], function () {
     gulp.start('pack-prod');
     done();
-  })
+  });
 });
 
 
