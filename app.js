@@ -10,9 +10,9 @@ var app = new Koa();
 app.use(serve('./public'));
 app.use(logger());
 
-app = router(app, {
+app.use(router({
   path : '/routes.js'
-});
+}));
 
 app.listen(3000,  () => {
   console.log('app started at http://127.0.0.1:3000/');
