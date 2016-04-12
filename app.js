@@ -22,10 +22,9 @@ app.use(convert(
     ]})
 ));
 
-app = router(app, {
-  path : '/routes.js',
-  args : [jwt]
-});
+app.use(router({
+  path : '/routes.js'
+}));
 
 app.listen(3000,  () => {
   console.log('app started at http://127.0.0.1:3000/');
