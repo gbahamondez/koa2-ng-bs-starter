@@ -152,7 +152,7 @@ gulp.task('run', function () {
 
 gulp.task('open', function () {
   gulp.src('').pipe(open({
-    uri: 'http://localhost:' + app.port
+    uri: 'http://localhost:' + app.port + '/login'
   }));
 });
 

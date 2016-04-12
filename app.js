@@ -4,14 +4,27 @@ const Koa = require('koa');
 const router = require('koa-load-routes');
 const logger = require('koa-logger');
 const serve = require('koa-static');
+const bodyParser = require('koa-bodyparser');
+const convert = require('koa-convert');
+const jwt = require('koa-jwt');
 
 var app = new Koa();
 
 app.use(serve('./public'));
 app.use(logger());
+app.use(bodyParser());
+
+app.use(convert(
+  jwt({ secret: 'some secret' })
+    .unless({ path: [
+      /^\/public/,
+      /^\/login/
+    ]})
+));
 
 app = router(app, {
-  path : '/routes.js'
+  path : '/routes.js',
+  args : [jwt]
 });
 
 app.listen(3000,  () => {
