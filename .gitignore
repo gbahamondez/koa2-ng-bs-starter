@@ -6,3 +6,5 @@ coverage
 npm-debug.log
 .npmignore
 build
+dist
+docs

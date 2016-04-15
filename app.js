@@ -10,22 +10,36 @@ const jwt = require('koa-jwt');
 
 var app = new Koa();
 
-app.use(serve('./public'));
+app.use(serve('./dist'));
 app.use(logger());
 app.use(bodyParser());
 
+
+app.use(function(ctx, next) {
+  return next()
+    .catch(function(err) {
+      if (401 == err.status) {
+        ctx.status = 401;
+        ctx.body = 'Protected resource, use Authorization header to get access\n';
+      } else {
+        throw err;
+      }
+    });
+});
+
 app.use(convert(
   jwt({ secret: 'some secret' })
-    .unless({ path: [
-      /^\/public/,
-      /^\/login/
-    ]})
+    .unless({
+      path: ['/', '/login', '/public', '/home']
+    })
 ));
 
 app.use(router({
-  path : '/routes.js'
+  path : './routes.js',
+  args : [jwt]
 }));
 
-app.listen(3000,  () => {
+
+app.listen(3000, () => {
   console.log('app started at http://127.0.0.1:3000/');
 });

@@ -1,0 +1,8 @@
+<div ng-if="isAuthenticated()">
+  <strong>Home!</strong>
+  <button ng-click="logout()">Logout</button>
+</div>
+
+<div ng-if="!isAuthenticated()">
+  <strong>You should login first!</strong>
+</div>
