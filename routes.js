@@ -20,6 +20,7 @@ module.exports = function ($jwt) {
     };
   });
 
+
   this.get('/getdata', function(ctx) {
     ctx.body = ['im', 'the', 'data'];
   });
