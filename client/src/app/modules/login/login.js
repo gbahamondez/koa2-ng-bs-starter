@@ -1,7 +1,7 @@
 'use strict';
 
 const name = 'login';
-import loginTemplate from '../templates/login.html';
+import loginTemplate from './login.html';
 import angular from 'angular';
 
 angular.module(name, ['ui.router'])

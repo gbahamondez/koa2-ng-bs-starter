@@ -2,7 +2,7 @@
 
 const name = 'home';
 
-import homeTemplate from '../templates/home.html';
+import homeTemplate from './home.html';
 import angular from 'angular';
 
 angular.module(name, ['ui.router'])

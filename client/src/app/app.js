@@ -11,10 +11,10 @@ import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
 import satellizer from 'satellizer';
 
-import login from './modules/login.js';
-import home from './modules/home.js';
+import login from './modules/login/login.js';
+import home from './modules/home/home.js';
 
-import UsersService from './services/User.js';
+import UsersService from './services/user.js';
 
 var app = angular.module('app', [
   satellizer,
