@@ -1,4 +1,4 @@
-# koa-angular-boostrap-sample
+# koa2-ng-bs-starter
 
 This is a sample project template using:
 
