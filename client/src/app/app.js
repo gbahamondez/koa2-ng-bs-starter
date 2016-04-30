@@ -2,6 +2,7 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../sass/signin.scss';
+import '../sass/view-slide-in.scss';
 
 import angular from 'angular';
 
