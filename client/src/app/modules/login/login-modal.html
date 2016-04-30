@@ -2,11 +2,59 @@
   <h2 class="text-center modal-title">Sign In</h2>
 </div>
 <div class="modal-body">
-  <form ng-submit="login()" method="post" class="form-signin">
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email"  ng-model="user.email" class="form-control" placeholder="Email address" required autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" ng-model="user.password" class="form-control" placeholder="Password" required>
-    <button ng-click="closeModal()" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  <form name="loginForm" ng-submit="login()" method="post" class="form-signin">
+
+    <div ng-class="{'has-error' : loginForm.email.$touched && loginForm.email.$invalid}">
+      <input type="email" name="email" ng-model="user.email" class="form-control"
+      placeholder="Email address" autofocus required>
+    </div>
+
+    <div ng-class="{'has-error' : loginForm.password.$touched && loginForm.password.$invalid}">
+      <input type="password" name="password" ng-model="user.password" class="form-control"
+      placeholder="Password" required>
+    </div>
+
+    <uib-alert type="danger"
+      ng-if="(loginForm.email.$touched && loginForm.password.$touched) &&
+             (loginForm.email.$invalid || loginForm.password.$invalid)">
+
+      <ul ng-messages="loginForm.email.$error">
+        <li ng-message="required">Email required</li>
+        <li ng-message="email">Invalid email</li>
+      </ul>
+
+      <ul ng-messages="loginForm.password.$error" ng-if="loginForm.password.$touched">
+        <li ng-message="required">Password required</li>
+      </ul>
+    </uib-alert>
+
+    <button ng-disabled="loginForm.password.$invalid || loginForm.email.$invalid"
+    ng-click="closeModal()" class="btn btn-lg btn-primary btn-block" type="submit">
+      Sign in
+    </button>
+
+    <div class="text-center" style="margin-top:20px;">
+      <span><a href="">Forgot Your Password?</a></span>
+      <br>
+      <span class="text-muted">
+        Don't have an account yet? <a href="">Sign Up</a>
+      </span>
+    </div>
+
+    <div>
+      <h5 class="text-center">or</h5>
+    </div>
+
+    <hr>
+
+    <button class="btn btn-lg btn-block btn-google">
+      <i class="fa fa-google-plus fa-lg"></i> Sign in with Google
+    </button>
+
+    <button class="btn btn-lg btn-github btn-block">
+      <i class="fa fa-github fa-lg"></i> Sign in with GitHub
+
+    </button>
+
   </form>
 </div>

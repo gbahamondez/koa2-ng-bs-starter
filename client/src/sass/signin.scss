@@ -40,3 +40,27 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+.btn-google {
+  background: #db4939;
+  border-color: #db4939;
+  color : #fff;
+}
+
+.btn-google:hover {
+  background: #c9372c;
+  border-color: #c9372c;
+  color : #fff;
+}
+
+.btn-github {
+  background: #424242;
+  border-color: #424242;
+  color : #fff;
+}
+
+.btn-github:hover {
+  background: #303030;
+  border-color: #303030;
+  color : #fff;
+}

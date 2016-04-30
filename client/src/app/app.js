@@ -1,6 +1,7 @@
 'use strict';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'font-awesome/css/font-awesome.css';
 import '../sass/signin.scss';
 import '../sass/view-slide-in.scss';
 
@@ -11,6 +12,7 @@ import ngResource from 'angular-resource';
 import uiRouter from 'angular-ui-router';
 import uiBootstrap from 'angular-ui-bootstrap';
 import satellizer from 'satellizer';
+import ngMessages from 'angular-messages';
 
 import login from './modules/login/login.js';
 import home from './modules/home/home.js';
@@ -21,6 +23,7 @@ var app = angular.module('app', [
   satellizer,
   ngAnimate,
   ngResource,
+  ngMessages,
   uiBootstrap,
   uiRouter,
   login,
